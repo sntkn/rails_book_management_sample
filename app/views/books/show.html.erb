@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @book.title %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @book.author %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @book.description %>
+</p>
+
+<p>
+  <strong>Total stock:</strong>
+  <%= @borrowed %> / <%= @book.total_stock %>
+</p>
+<% if user_signed_in? %>
+  <% if @user_books.id %>
+      <%= form_for(@user_books, :method => :delete) do |f| %>
+        <%= f.submit 'かえす' %>
+      <% end %>
+  <% else %>
+    <% if @book.can_borrow %>
+      <%= form_for(@user_books) do |f| %>
+        <%= f.hidden_field :book_id, value: @user_books.book_id %>
+        <%= f.submit 'かりる' %>
+      <% end %>
+    <% else %>
+      借りられない
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= link_to 'Edit', edit_book_path(@book) %> |
+<%= link_to 'Back', books_path %>

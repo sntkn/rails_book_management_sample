@@ -1,0 +1,18 @@
+<h1>MyPages#index</h1>
+<%= will_paginate @books, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= link_to book.title, book %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
