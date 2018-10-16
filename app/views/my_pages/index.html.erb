@@ -1,12 +1,10 @@
-<h1>MyPages#index</h1>
-<%= will_paginate @books, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
-<table>
-  <thead>
+<h1>MyPages</h1>
+<table class="table my-3">
+  <thead class="thead-light">
     <tr>
       <th>Title</th>
     </tr>
   </thead>
-
   <tbody>
     <% @books.each do |book| %>
       <tr>
@@ -15,4 +13,5 @@
     <% end %>
   </tbody>
 </table>
+<%= will_paginate @books, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
 

@@ -1,40 +1,32 @@
-<p id="notice"><%= notice %></p>
+<h1>Book</h1>
 
-<p>
-  <strong>Title:</strong>
-  <%= @book.title %>
-</p>
-
-<p>
-  <strong>Author:</strong>
-  <%= @book.author %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @book.description %>
-</p>
-
-<p>
-  <strong>Total stock:</strong>
-  <%= @borrowed %> / <%= @book.total_stock %>
-</p>
+<dl class="row">
+  <dt class="col-sm-3">Title</dt>
+  <dd class="col-sm-9"><%= @book.title %></dd>
+  <dt class="col-sm-3">Author</dt>
+  <dd class="col-sm-9"><%= @book.author %></dd>
+  <dt class="col-sm-3">Description</dt>
+  <dd class="col-sm-9"><%= @book.description %></dd>
+  <dt class="col-sm-3">Total stock</dt>
+  <dd class="col-sm-9"><%= @borrowed %> / <%= @book.total_stock %></dd>
+</dl>
+<div class="text-center">
 <% if user_signed_in? %>
-  <% if @user_books.id %>
-      <%= form_for(@user_books, :method => :delete) do |f| %>
-        <%= f.submit 'かえす' %>
+  <% if @user_book.id %>
+      <%= form_for(@user_book, method: :delete) do |f| %>
+        <%= f.submit 'この本を返す', class: 'btn btn-primary' %>
       <% end %>
   <% else %>
     <% if @book.can_borrow %>
-      <%= form_for(@user_books) do |f| %>
-        <%= f.hidden_field :book_id, value: @user_books.book_id %>
-        <%= f.submit 'かりる' %>
+      <%= form_for(@user_book) do |f| %>
+        <%= f.hidden_field :book_id, value: @user_book.book_id %>
+        <%= f.submit 'この本を借りる', class: 'btn btn-primary' %>
       <% end %>
     <% else %>
       借りられない
     <% end %>
   <% end %>
 <% end %>
-
+</div>
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <%= link_to 'Back', books_path %>
