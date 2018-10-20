@@ -1,17 +1,20 @@
-<h1>MyPages</h1>
-<table class="table my-3">
-  <thead class="thead-light">
-    <tr>
-      <th>Title</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @books.each do |book| %>
+<h1>借りている書籍一覧</h1>
+<% unless @books.present? %>
+  借りている書籍はありません
+<% else %>
+  <table class="table my-3">
+    <thead class="thead-light">
       <tr>
-        <td><%= link_to book.title, book %></td>
+        <th>借りている本</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= will_paginate @books, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
-
+    </thead>
+    <tbody>
+      <% @books.each do |book| %>
+        <tr>
+          <td><%= link_to book.title, book %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @books %>
+<% end %>

@@ -1,22 +1,26 @@
-<h1>Books</h1>
+<h1>書籍一覧</h1>
 <div class="text-right">
-<%= link_to 'New Book', new_book_path, class: 'btn btn-primary' %>
+<%= link_to '書籍を追加', new_book_path, class: 'btn btn-primary' %>
 </div>
-<table class="table my-3">
-  <thead class="thead-light">
-    <tr>
-      <th>Title</th>
-      <th>Total stock</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @books.each do |book| %>
+<% unless @books.present? %>
+  登録済みの書籍はありません
+<% else %>
+  <table class="table my-3">
+    <thead class="thead-light">
       <tr>
-        <td><%= link_to book.title, book %><%=  %></td>
-        <td><%= book.total_stock %></td>
+        <th>タイトル</th>
+        <th>著者</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= will_paginate @books, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
+    </thead>
+
+    <tbody>
+      <% @books.each do |book| %>
+        <tr>
+          <td><%= link_to book.title, book %><%=  %></td>
+          <td><%= book.author %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @books %>
+<% end %>

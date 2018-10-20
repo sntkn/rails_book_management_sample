@@ -3,6 +3,7 @@ class UserBooksController < ApplicationController
 
   def create
     user_book = UserBook.new(user_book_params.merge(user_id: current_user.id))
+    return redirect_to root_path, warning: 'エラーが発生しました' unless user_book.book.present?
 
     User.transaction(isolation: :serializable) do
       raise 'error' unless user_book.book.can_borrow
@@ -16,6 +17,7 @@ class UserBooksController < ApplicationController
 
   def destroy
     user_book = UserBook.find(params[:id])
+
     user_book.destroy!
     redirect_to user_book.book, success: 'UserBook was successfully destroyed.'
   end

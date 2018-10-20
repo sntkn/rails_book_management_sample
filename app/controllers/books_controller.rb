@@ -10,8 +10,8 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
-    @user_book = @book.user_books.borrowed(current_user.id) if user_signed_in?
-    @borrowed = @book.user_books.count
+    @user_book = @book.user_books.borrowed_form_user_or_generate(current_user.id) if user_signed_in?
+    @user_borrowed = @user_book.id if user_signed_in?
   end
 
   # GET /books/new

@@ -1,4 +1,4 @@
-<h1>Book</h1>
+<h1><%= @book.title %></h1>
 
 <dl class="row">
   <dt class="col-sm-3">Title</dt>
@@ -8,11 +8,11 @@
   <dt class="col-sm-3">Description</dt>
   <dd class="col-sm-9"><%= @book.description %></dd>
   <dt class="col-sm-3">Total stock</dt>
-  <dd class="col-sm-9"><%= @borrowed %> / <%= @book.total_stock %></dd>
+  <dd class="col-sm-9"><%= @book.users.count %> / <%= @book.total_stock %></dd>
 </dl>
 <div class="text-center">
 <% if user_signed_in? %>
-  <% if @user_book.id %>
+  <% if @user_borrowed %>
       <%= form_for(@user_book, method: :delete) do |f| %>
         <%= f.submit 'この本を返す', class: 'btn btn-primary' %>
       <% end %>
@@ -26,7 +26,9 @@
       借りられない
     <% end %>
   <% end %>
+<% else %>
+  本を貸し借りするにはログインが必要です
 <% end %>
 </div>
-<%= link_to 'Edit', edit_book_path(@book) %> |
-<%= link_to 'Back', books_path %>
+<%= link_to '編集', edit_book_path(@book) %> |
+<%= link_to '戻る', books_path %>

@@ -4,11 +4,11 @@ class Book < ApplicationRecord
   validates :title, presence: true, length: { maximum: 200 }
   validates :author, presence: true, length: { maximum: 200 }
   validates :description, presence: true, length: { maximum: 2000 }
-  validates :total_stock, presence: true, numericality: { only_integer: true }
+  validates :total_stock, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validate :total_stock_must_be_more_than_borrowed, if: :id?
 
   def total_stock_must_be_more_than_borrowed
-    errors.add(:total_stock, 'total_stockより大きい数字にはできません') if total_stock < user_books.count
+    errors.add(:total_stock, 'より少ない数字にはできません') if total_stock < user_books.count
   end
 
   def can_borrow

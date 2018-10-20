@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe "books/index", type: :view do
-  before(:each) do
-    assign(:books, [
-      Book.create!(),
-      Book.create!()
-    ])
-  end
+feature 'books/index' do
+  context '本が登録されている時' do
+    let(:books) do
+      FactoryBot.create_list(:book, 3)
+    end
 
-  it "renders a list of books" do
-    render
+    scenario '本のリストが表示されること' do
+      visit books_path
+      expect(page).to have_content 'タイトル'
+    end
   end
 end

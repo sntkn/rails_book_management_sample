@@ -29,11 +29,11 @@ RSpec.describe BooksController, type: :controller do
   # Book. As you add validations to Book, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    FactoryBot.attributes_for(:book)
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    FactoryBot.attributes_for(:book, :invalid)
   }
 
   # This should return the minimal set of values that should be in the session
@@ -97,14 +97,13 @@ RSpec.describe BooksController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        FactoryBot.attributes_for(:book, :new)
       }
 
       it "updates the requested book" do
         book = Book.create! valid_attributes
         put :update, params: {id: book.to_param, book: new_attributes}, session: valid_session
         book.reload
-        skip("Add assertions for updated state")
       end
 
       it "redirects to the book" do
@@ -122,20 +121,4 @@ RSpec.describe BooksController, type: :controller do
       end
     end
   end
-
-  describe "DELETE #destroy" do
-    it "destroys the requested book" do
-      book = Book.create! valid_attributes
-      expect {
-        delete :destroy, params: {id: book.to_param}, session: valid_session
-      }.to change(Book, :count).by(-1)
-    end
-
-    it "redirects to the books list" do
-      book = Book.create! valid_attributes
-      delete :destroy, params: {id: book.to_param}, session: valid_session
-      expect(response).to redirect_to(books_url)
-    end
-  end
-
 end
