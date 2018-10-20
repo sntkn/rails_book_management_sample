@@ -6,9 +6,9 @@
   <dt class="col-sm-3">Author</dt>
   <dd class="col-sm-9"><%= @book.author %></dd>
   <dt class="col-sm-3">Description</dt>
-  <dd class="col-sm-9"><%= @book.description %></dd>
+  <dd class="col-sm-9"><%= simple_format(@book.description) %></dd>
   <dt class="col-sm-3">Total stock</dt>
-  <dd class="col-sm-9"><%= @book.users.count %> / <%= @book.total_stock %></dd>
+  <dd class="col-sm-9"><%= @book.users_count %> / <%= @book.total_stock %></dd>
 </dl>
 <div class="text-center">
 <% if user_signed_in? %>
