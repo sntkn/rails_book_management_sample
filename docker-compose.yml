@@ -13,6 +13,11 @@ services:
       - "3000:3000"
     depends_on:
       - db
+  smtp:
+    image: zolweb/docker-mailcatcher:latest
+    ports:
+      - "1080:1080"
+      - "1025:1025"
 volumes:
   sql-data:
     driver: local

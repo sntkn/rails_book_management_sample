@@ -1,11 +1,11 @@
-<h1>借りている書籍一覧</h1>
+<h1>貸出中の書籍</h1>
 <% unless @books.present? %>
-  借りている書籍はありません
+<div class="alert alert-info" role="alert">貸出中の書籍はありません</div>
 <% else %>
   <table class="table my-3">
     <thead class="thead-light">
       <tr>
-        <th>借りている本</th>
+        <th>貸出中の書籍</th>
       </tr>
     </thead>
     <tbody>

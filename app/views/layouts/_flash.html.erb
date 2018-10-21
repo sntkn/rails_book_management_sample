@@ -1,0 +1,7 @@
+<div class="my-3">
+  <% flash.each do |name, msg| %>
+    <div class="alert alert-<%= name %>">
+      <%= msg.html_safe %>
+    </div>
+  <% end %>
+</div>

@@ -6,7 +6,7 @@ feature 'books/show' do
   scenario '更新ボタンを押して更新できること' do
     visit edit_book_path(book.id)
     click_on '書籍更新'
-    expect(page).to have_content 'Book was successfully updated.'
+    expect(page).to have_content '更新しました'
   end
 
   context '例外系' do

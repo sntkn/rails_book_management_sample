@@ -7,17 +7,17 @@ RSpec.describe Book, type: :model do
 
   context 'バリデーション' do
     it '所蔵数は貸出数未満の数字を入力したらNG' do
-      book.total_stock = book.users.count - 1
+      book.total_stock = book.users_count - 1
       book.valid?
       expect(book).to be_invalid
     end
     it '所蔵数は貸出数と同じ数字を入力したらOK' do
-      book.total_stock = book.users.count
+      book.total_stock = book.users_count
       book.valid?
       expect(book).to be_valid
     end
     it '所蔵数は貸出数より大きい数字を入力したらOK' do
-      book.total_stock = book.users.count + 1
+      book.total_stock = book.users_count + 1
       book.valid?
       expect(book).to be_valid
     end
