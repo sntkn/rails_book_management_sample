@@ -1,24 +1,44 @@
-# README
+# 社内用書籍管理アプリ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+社内に置いてある書籍の貸し借りを管理するアプリを作成しました
 
-Things you may want to cover:
+## 機能・仕様
 
-* Ruby version
+### 機能
 
-* System dependencies
+- サインイン・ログイン
+- 書籍一覧表示、登録、編集
+- 書籍を借りる・返す
+- 借りている書籍一覧
 
-* Configuration
+### 仕様
 
-* Database creation
+- 所蔵数より多くは貸出できない
+- 所蔵数は現在貸出中の数より少なく変更できない
+- 同一アカウントで同一書籍は1冊まで借りられる
 
-* Database initialization
+## Getting Started
 
-* How to run the test suite
+```bash
+docker-compose build
+docker-compose run -u root web bundle
+docker-compose run web rails db:create
+docker-compose run web rails db:migrate
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## todo
 
-* Deployment instructions
+- 管理者権限のみ書籍編集できるようにする
+- 多言語化
+- 画像登録
+- 貸出、返却日を登録して通知まで
+- 予約機能
+- redisなどキャッシュ系
+- esなど全文検索エンジンを使った書籍検索
+- aws lambdaなど利用してサムネイルも同時生成
 
-* ...
+web
+http://localhost:3000
+
+mail
+http://localhost:1080

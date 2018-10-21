@@ -3,7 +3,7 @@
 <%= link_to '書籍を追加', new_book_path, class: 'btn btn-primary' %>
 </div>
 <% unless @books.present? %>
-  登録済みの書籍はありません
+  <div class="alert alert-info" role="alert">登録済みの書籍はありません</div>
 <% else %>
   <table class="table my-3">
     <thead class="thead-light">

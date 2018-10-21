@@ -14,20 +14,20 @@
 <% if user_signed_in? %>
   <% if @user_borrowed %>
       <%= form_for(@user_book, method: :delete) do |f| %>
-        <%= f.submit 'この本を返す', class: 'btn btn-primary' %>
+        <%= f.submit '書籍を返す', class: 'btn btn-primary' %>
       <% end %>
   <% else %>
     <% if @book.can_borrow %>
       <%= form_for(@user_book) do |f| %>
         <%= f.hidden_field :book_id, value: @user_book.book_id %>
-        <%= f.submit 'この本を借りる', class: 'btn btn-primary' %>
+        <%= f.submit '書籍を借りる', class: 'btn btn-primary' %>
       <% end %>
     <% else %>
-      借りられない
+      <div class="alert alert-warning" role="alert">貸出できません</div>
     <% end %>
   <% end %>
 <% else %>
-  本を貸し借りするにはログインが必要です
+  <div class="alert alert-warning" role="alert">本を貸し借りするにはログインが必要です</div>
 <% end %>
 </div>
 <%= link_to '編集', edit_book_path(@book) %> |

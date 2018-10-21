@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    name: postgres-node
+  name: postgres-node
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: postgres-node
+    spec:
+      containers:
+      - image: gcr.io/book-management-220011/book_management_postgres:v0.1
+        name: postgres-node
+        ports:
+        - containerPort: 5432
