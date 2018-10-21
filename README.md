@@ -17,6 +17,16 @@
 - 所蔵数は現在貸出中の数より少なく変更できない
 - 同一アカウントで同一書籍は1冊まで借りられる
 
+## Demo
+
+### Heroku
+
+https://afternoon-anchorage-92073.herokuapp.com
+
+### GKE(IPアドレスが変わりました)
+
+http://35.221.99.141/
+
 ## Getting Started
 
 ```bash
