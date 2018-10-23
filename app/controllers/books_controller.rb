@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :set_book, only: %i[show edit update destroy]
 
   # GET /books
   # GET /books.json
@@ -20,8 +20,7 @@ class BooksController < ApplicationController
   end
 
   # GET /books/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /books
   # POST /books.json

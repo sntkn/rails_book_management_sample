@@ -1,24 +1,24 @@
 <h1><%= @book.title %></h1>
 
 <dl class="row">
-  <dt class="col-sm-3">Title</dt>
+  <dt class="col-sm-3">タイトル</dt>
   <dd class="col-sm-9"><%= @book.title %></dd>
-  <dt class="col-sm-3">Author</dt>
+  <dt class="col-sm-3">著者</dt>
   <dd class="col-sm-9"><%= @book.author %></dd>
-  <dt class="col-sm-3">Description</dt>
+  <dt class="col-sm-3">詳細</dt>
   <dd class="col-sm-9"><%= simple_format(@book.description) %></dd>
-  <dt class="col-sm-3">Total stock</dt>
+  <dt class="col-sm-3">所蔵数</dt>
   <dd class="col-sm-9"><%= @book.users_count %> / <%= @book.total_stock %></dd>
 </dl>
 <div class="text-center">
 <% if user_signed_in? %>
   <% if @user_borrowed %>
-      <%= form_for(@user_book, method: :delete) do |f| %>
+      <%= form_with model: @user_book, method: :delete, local:true do |f| %>
         <%= f.submit '書籍を返す', class: 'btn btn-primary' %>
       <% end %>
   <% else %>
     <% if @book.can_borrow %>
-      <%= form_for(@user_book) do |f| %>
+      <%= form_with model: @user_book, local:true do |f| %>
         <%= f.hidden_field :book_id, value: @user_book.book_id %>
         <%= f.submit '書籍を借りる', class: 'btn btn-primary' %>
       <% end %>

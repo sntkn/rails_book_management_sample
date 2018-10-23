@@ -5,14 +5,11 @@ class UserBooksController < ApplicationController
     user_book = UserBook.new(user_book_params.merge(user_id: current_user.id))
     return redirect_to root_path, warning: 'エラーが発生しました' unless user_book.book.present?
 
-    User.transaction(isolation: :serializable) do
-      raise 'error' unless user_book.book.can_borrow
-
-      user_book.save!
+    if user_book.borrow
       redirect_to user_book.book, success: '書籍を借りました'
+    else
+      redirect_to user_book.book, warning: 'エラーが発生しました'
     end
-  rescue StandardError => e
-    redirect_to user_book.book, warning: e.message
   end
 
   def destroy
