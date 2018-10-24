@@ -16,6 +16,11 @@ RSpec.describe UserBook, type: :model do
         user_book = book.user_books.borrowed_form_user_or_generate(user.id)
         expect(user_book.id).to eq nil
       end
+      it '本を借りられること' do
+        user_book = book.user_books.borrowed_form_user_or_generate(user.id)
+        result = user_book.borrow
+        expect(result).to eq true
+      end
     end
   end
 end

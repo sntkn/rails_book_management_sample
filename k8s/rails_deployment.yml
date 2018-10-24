@@ -12,7 +12,7 @@ spec:
         name: rails-node
     spec:
       containers:
-      - image: gcr.io/book-management-220011/book_management_rails:v0.1
+      - image: gcr.io/book-management-220011/book_management_rails:latest
         name: rails-node
         ports:
         - containerPort: 3000
