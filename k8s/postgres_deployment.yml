@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pv-claim
+spec:
+  storageClassName: sc-db
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -6,13 +19,22 @@ metadata:
   name: postgres-node
 spec:
   replicas: 3
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
         name: postgres-node
     spec:
       containers:
-      - image: gcr.io/book-management-220011/book_management_postgres:v0.1
+      - image: gcr.io/book-management-220011/book_management_postgres:latest
         name: postgres-node
         ports:
         - containerPort: 5432
+        volumeMounts:
+        - name: postgres-persistent-storage
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: postgres-persistent-storage
+        persistentVolumeClaim:
+          claimName: postgres-pv-claim

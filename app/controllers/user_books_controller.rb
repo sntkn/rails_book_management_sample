@@ -15,7 +15,7 @@ class UserBooksController < ApplicationController
   def destroy
     user_book = UserBook.find(params[:id])
 
-    user_book.destroy!
+    user_book.destroy
     redirect_to user_book.book, success: '書籍を返却しました'
   end
 
