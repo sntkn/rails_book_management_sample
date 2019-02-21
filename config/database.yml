@@ -22,6 +22,9 @@ development:
 test:
   <<: *default
   database: book_management_test
+  host: <%= ENV.fetch("DB_HOST") { 'localhost' } %>
+  username: <%= ENV.fetch("DB_USERNAME") %>
+  password: <%= ENV.fetch("DB_PASSWORD") %>
 
 production:
   <<: *default
