@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.0'
+ruby '2.5.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.1'
+gem 'rails', '~> 5.2.2'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -44,7 +44,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'hirb'
-  gem 'hirb-unicode'
+#  gem 'hirb-unicode'
   gem 'beautiful-log'
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -69,7 +69,7 @@ group :development do
   gem 'rack-mini-profiler'
   gem 'view_source_map'
   gem 'pre-commit', :require => false
-  gem "rubocop", require: false
+  gem 'rubocop', '~> 0.65.0', require: false
 end
 
 group :test do
