@@ -43,6 +43,16 @@ group :development, :test do
   gem 'rspec_junit_formatter'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'hirb'
+  gem 'hirb-unicode'
+  gem 'beautiful-log'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'pry'
+  gem 'pry-byebug'
+  gem 'pry-doc'
+  gem 'pry-rails'
+  gem 'pry-stack_explorer'
 end
 
 group :development do
@@ -52,6 +62,11 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'brakeman'
+  gem 'bullet'
+  gem 'bundler-audit'
+
+
 end
 
 group :test do
