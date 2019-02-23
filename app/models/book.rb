@@ -8,7 +8,7 @@ class Book < ApplicationRecord
   validate :total_stock_must_be_more_than_borrowed, if: :id?
 
   def total_stock_must_be_more_than_borrowed
-    errors.add(:total_stock, 'より少ない数字にはできません') if total_stock < users_count
+    errors.add(:total_stock, "より少ない数字にはできません") if total_stock < users_count
   end
 
   def can_borrow

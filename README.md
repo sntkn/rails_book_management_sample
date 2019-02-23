@@ -52,3 +52,13 @@ http://localhost:3000
 
 mail
 http://localhost:1080
+
+## 参考
+
+### rbenvでruby versionを変えてもbundle installできない
+
+Gemfile.lock を削除
+
+### CircleCI のbundler version
+
+https://discuss.circleci.com/t/using-bundler-2-0-during-ci-fails/27411/2
