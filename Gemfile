@@ -53,6 +53,7 @@ group :development, :test do
   gem 'pry-doc'
   gem 'pry-rails'
   gem 'pry-stack_explorer'
+  gem 'tapp'
 end
 
 group :development do
@@ -65,8 +66,10 @@ group :development do
   gem 'brakeman'
   gem 'bullet'
   gem 'bundler-audit'
-
-
+  gem 'rack-mini-profiler'
+  gem 'view_source_map'
+  gem 'pre-commit', :require => false
+  gem "rubocop", require: false
 end
 
 group :test do
