@@ -72,12 +72,6 @@ jobs:
             echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
             gem install bundler
-      - run:
-          name: test
-          command: ls -la vendor
-      - run:
-          name: test2
-          command: bundle -v && bundle list
       # run tests!
       - run:
           name: run tests
