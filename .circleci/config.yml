@@ -66,6 +66,12 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/workspace
+      - run:
+          name: test
+          command: ls -la vendor
+      - run:
+          name: test2
+          command: bundle -v && bundle list
       # run tests!
       - run:
           name: run tests
