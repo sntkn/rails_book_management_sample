@@ -4,7 +4,7 @@
 #
 version: 2
 defaults: &defaults
-  working_directory: ~/rails_book_management
+  working_directory: ~/workspace
   docker:
     # specify the version you desire here
     - image: circleci/ruby:2.5.3-node-browsers
@@ -56,14 +56,14 @@ jobs:
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
       - persist_to_workspace:
-          root: . # workspaceのrootパス（絶対パスかworking_directoryからの相対パス）
-          paths:
-            - . # 共有するパス（絶対パスかrootからの相対パス）
+          root: .
+          paths: vendor/bundle
   test:
     <<: *defaults
     steps:
-      - attach_workspace: # workspaceをアタッチする
-          at: .
+      - checkout
+      - attach_workspace:
+          at: ~/workspace
       # run tests!
       - run:
           name: run tests
