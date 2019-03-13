@@ -58,7 +58,7 @@ jobs:
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
       - persist_to_workspace:
-          root: .
+          root: ~/workspace
           paths: vendor/bundle
   test:
     <<: *defaults
