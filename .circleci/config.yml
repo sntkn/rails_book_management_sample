@@ -3,26 +3,30 @@
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
 version: 2
+defaults: &defaults
+  working_directory: ~/workspace
+  docker:
+    # specify the version you desire here
+    - image: circleci/ruby:2.5.3-node-browsers
+      environment:
+        BUNDLER_VERSION: 2.0.1
+        RAILS_ENV: test
+        DB_USERNAME: postgres
+        DB_DATABASE: test
+        DB_PASSWORD: password1
+    # Specify service dependencies here if necessary
+    # CircleCI maintains a library of pre-built images
+    # documented at https://circleci.com/docs/2.0/circleci-images/
+    # - image: circleci/postgres:9.4
+    - image: circleci/postgres:10.1-alpine
+
 jobs:
   build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/ruby:2.5.3-node-browsers
-        environment:
-          BUNDLER_VERSION: 2.0.1
-          RAILS_ENV: test
-          DB_USERNAME: postgres
-          DB_DATABASE: test
-          DB_PASSWORD: password1
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-      - image: circleci/postgres:10.1-alpine
-    working_directory: ~/rails_book_management
-
+    <<: *defaults
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/workspace
 
       # Download and cache dependencies
       - restore_cache:
@@ -46,6 +50,25 @@ jobs:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
+      - persist_to_workspace:
+          root: ~/workspace
+          paths: vendor/bundle
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/workspace
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+      - run:
+          name: install dependencies
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
@@ -53,7 +76,6 @@ jobs:
       # Database setup
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
-
       # run tests!
       - run:
           name: run tests
@@ -75,10 +97,29 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
-
+  deploy:
+    <<: *defaults
+    steps:
+      - attach_workspace: # workspaceをアタッチする
+          at: .
       - deploy:
           name: Deploy Master to Heroku
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
             fi
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: master
