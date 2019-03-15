@@ -99,7 +99,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-        at: ~/workspace
+          at: ~/workspace
       - run:
           name: heroku maintenance on
           command: heroku maintenance:on --app ${HEROKU_APP_NAME_STAGING}
