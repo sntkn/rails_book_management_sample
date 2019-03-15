@@ -135,6 +135,9 @@ workflows:
       - test:
           requires:
             - build
+          filters:
+            tags:
+              only: /.*/
       - deploy_staging:
           requires:
             - test
