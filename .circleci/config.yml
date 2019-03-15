@@ -141,6 +141,8 @@ workflows:
           filters:
             branches:
               only: master
+            tags:
+              only: /.*/
       - deploy_production:
           requires:
             - test
