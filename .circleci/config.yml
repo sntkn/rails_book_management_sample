@@ -97,14 +97,18 @@ jobs:
   deploy_staging:
     <<: *defaults
     steps:
+      - checkout
       - attach_workspace:
-          at: ~/workspace
-      - deploy:
+        at: ~/workspace
+      - run:
+          name: heroku maintenance on
+          command: heroku maintenance:on --app ${HEROKU_APP_NAME_STAGING}
+      - run:
           name: Deploy Master to Heroku
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
-              
+
               git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
             fi
   deploy_production:
